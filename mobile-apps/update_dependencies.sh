@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Update main_app pubspec.yaml
+cat > main_app/pubspec.yaml << 'PUBSPEC'
+name: expertaid_lms
+description: ExpertaidLMS - Complete Education Management Platform
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  http: ^1.2.2
+  shared_preferences: ^2.3.3
+  flutter_secure_storage: ^9.2.2
+  provider: ^6.1.2
+  intl: ^0.19.0
+  fl_chart: ^0.69.2
+  cached_network_image: ^3.4.1
+  shimmer: ^3.0.0
+  flutter_slidable: ^3.1.1
+  badges: ^3.1.2
+  animations: ^2.0.11
+  table_calendar: ^3.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+PUBSPEC
+
+# Copy to other apps with name changes
+for app in parent teacher admin driver; do
+  sed "s/name: expertaid_lms/name: expertaid_lms_${app}/" main_app/pubspec.yaml | \
+  sed "s/ExpertaidLMS - Complete Education Management Platform/ExpertaidLMS ${app^} Mobile Application/" > ${app}_app/pubspec.yaml
+done
+
+echo "Dependencies updated for all apps"
