@@ -29,9 +29,7 @@ jobs:
       - name: Create android folder
         working-directory: ./mobile-apps/parent_app
         run: |
-          if [ ! -d "android" ]; then
-            flutter create --org com.expertaidlms --platforms android .
-          fi
+          flutter create --org com.expertaidlms --platforms android .
       
       - name: Install dependencies
         working-directory: ./mobile-apps/parent_app
@@ -83,9 +81,7 @@ jobs:
       - name: Create android folder
         working-directory: ./mobile-apps/teacher_app
         run: |
-          if [ ! -d "android" ]; then
-            flutter create --org com.expertaidlms --platforms android .
-          fi
+          flutter create --org com.expertaidlms --platforms android .
       
       - name: Install dependencies
         working-directory: ./mobile-apps/teacher_app
@@ -137,9 +133,7 @@ jobs:
       - name: Create android folder
         working-directory: ./mobile-apps/admin_app
         run: |
-          if [ ! -d "android" ]; then
-            flutter create --org com.expertaidlms --platforms android .
-          fi
+          flutter create --org com.expertaidlms --platforms android .
       
       - name: Install dependencies
         working-directory: ./mobile-apps/admin_app
@@ -191,9 +185,7 @@ jobs:
       - name: Create android folder
         working-directory: ./mobile-apps/driver_app
         run: |
-          if [ ! -d "android" ]; then
-            flutter create --org com.expertaidlms --platforms android .
-          fi
+          flutter create --org com.expertaidlms --platforms android .
       
       - name: Install dependencies
         working-directory: ./mobile-apps/driver_app
