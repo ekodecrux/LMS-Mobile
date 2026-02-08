@@ -1,0 +1,242 @@
+name: Build APKs and AABs
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-unified-app:
+    name: Build Unified App
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
+      
+      - name: Install dependencies
+        working-directory: ./unified-app
+        run: |
+          flutter pub get
+      
+      - name: Build APK
+        working-directory: ./unified-app
+        run: |
+          flutter build apk --release
+      
+      - name: Build App Bundle
+        working-directory: ./unified-app
+        run: |
+          flutter build appbundle --release
+      
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: unified-app-apk
+          path: unified-app/build/app/outputs/flutter-apk/app-release.apk
+      
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: unified-app-aab
+          path: unified-app/build/app/outputs/bundle/release/app-release.aab
+
+  build-parent-app:
+    name: Build Parent App
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
+      
+      - name: Install dependencies
+        working-directory: ./mobile-apps/parent_app
+        run: |
+          flutter pub get
+      
+      - name: Build APK
+        working-directory: ./mobile-apps/parent_app
+        run: |
+          flutter build apk --release
+      
+      - name: Build App Bundle
+        working-directory: ./mobile-apps/parent_app
+        run: |
+          flutter build appbundle --release
+      
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: parent-app-apk
+          path: mobile-apps/parent_app/build/app/outputs/flutter-apk/app-release.apk
+      
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: parent-app-aab
+          path: mobile-apps/parent_app/build/app/outputs/bundle/release/app-release.aab
+
+  build-teacher-app:
+    name: Build Teacher App
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
+      
+      - name: Install dependencies
+        working-directory: ./mobile-apps/teacher_app
+        run: |
+          flutter pub get
+      
+      - name: Build APK
+        working-directory: ./mobile-apps/teacher_app
+        run: |
+          flutter build apk --release
+      
+      - name: Build App Bundle
+        working-directory: ./mobile-apps/teacher_app
+        run: |
+          flutter build appbundle --release
+      
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: teacher-app-apk
+          path: mobile-apps/teacher_app/build/app/outputs/flutter-apk/app-release.apk
+      
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: teacher-app-aab
+          path: mobile-apps/teacher_app/build/app/outputs/bundle/release/app-release.aab
+
+  build-admin-app:
+    name: Build Admin App
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
+      
+      - name: Install dependencies
+        working-directory: ./mobile-apps/admin_app
+        run: |
+          flutter pub get
+      
+      - name: Build APK
+        working-directory: ./mobile-apps/admin_app
+        run: |
+          flutter build apk --release
+      
+      - name: Build App Bundle
+        working-directory: ./mobile-apps/admin_app
+        run: |
+          flutter build appbundle --release
+      
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: admin-app-apk
+          path: mobile-apps/admin_app/build/app/outputs/flutter-apk/app-release.apk
+      
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: admin-app-aab
+          path: mobile-apps/admin_app/build/app/outputs/bundle/release/app-release.aab
+
+  build-driver-app:
+    name: Build Driver App
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
+      
+      - name: Install dependencies
+        working-directory: ./mobile-apps/driver_app
+        run: |
+          flutter pub get
+      
+      - name: Build APK
+        working-directory: ./mobile-apps/driver_app
+        run: |
+          flutter build apk --release
+      
+      - name: Build App Bundle
+        working-directory: ./mobile-apps/driver_app
+        run: |
+          flutter build appbundle --release
+      
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: driver-app-apk
+          path: mobile-apps/driver_app/build/app/outputs/flutter-apk/app-release.apk
+      
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: driver-app-aab
+          path: mobile-apps/driver_app/build/app/outputs/bundle/release/app-release.aab
