@@ -233,3 +233,66 @@ jobs:
         with:
           name: driver-app-aab
           path: mobile-apps/driver_app/build/app/outputs/bundle/release/app-release.aab
+
+  build-student-app:
+    name: Build Student App (Main App)
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
+      
+      - name: Create assets directory
+        working-directory: ./mobile-apps/main_app
+        run: |
+          mkdir -p assets/images
+          touch assets/images/.gitkeep
+      
+      - name: Create Android structure
+        working-directory: ./mobile-apps/main_app
+        run: |
+          flutter create --org com.expertaidlms --platforms android .
+          
+      - name: Fix Kotlin version in settings.gradle
+        working-directory: ./mobile-apps/main_app/android
+        run: |
+          sed -i 's/id "org.jetbrains.kotlin.android" version "[^"]*"/id "org.jetbrains.kotlin.android" version "1.9.22"/' settings.gradle
+      
+      - name: Install dependencies
+        working-directory: ./mobile-apps/main_app
+        run: |
+          flutter pub get
+      
+      - name: Build APK
+        working-directory: ./mobile-apps/main_app
+        run: |
+          flutter build apk --release
+      
+      - name: Build App Bundle
+        working-directory: ./mobile-apps/main_app
+        run: |
+          flutter build appbundle --release
+      
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: student-app-apk
+          path: mobile-apps/main_app/build/app/outputs/flutter-apk/app-release.apk
+      
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: student-app-aab
+          path: mobile-apps/main_app/build/app/outputs/bundle/release/app-release.aab
