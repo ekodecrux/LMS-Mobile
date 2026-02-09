@@ -26,10 +26,15 @@ jobs:
           flutter-version: '3.24.0'
           channel: 'stable'
       
-      - name: Create android folder
+      - name: Create Android structure
         working-directory: ./mobile-apps/parent_app
         run: |
           flutter create --org com.expertaidlms --platforms android .
+          
+      - name: Fix Kotlin version in settings.gradle
+        working-directory: ./mobile-apps/parent_app/android
+        run: |
+          sed -i 's/id "org.jetbrains.kotlin.android" version "[^"]*"/id "org.jetbrains.kotlin.android" version "1.9.22"/' settings.gradle
       
       - name: Install dependencies
         working-directory: ./mobile-apps/parent_app
@@ -78,10 +83,15 @@ jobs:
           flutter-version: '3.24.0'
           channel: 'stable'
       
-      - name: Create android folder
+      - name: Create Android structure
         working-directory: ./mobile-apps/teacher_app
         run: |
           flutter create --org com.expertaidlms --platforms android .
+          
+      - name: Fix Kotlin version in settings.gradle
+        working-directory: ./mobile-apps/teacher_app/android
+        run: |
+          sed -i 's/id "org.jetbrains.kotlin.android" version "[^"]*"/id "org.jetbrains.kotlin.android" version "1.9.22"/' settings.gradle
       
       - name: Install dependencies
         working-directory: ./mobile-apps/teacher_app
@@ -130,10 +140,15 @@ jobs:
           flutter-version: '3.24.0'
           channel: 'stable'
       
-      - name: Create android folder
+      - name: Create Android structure
         working-directory: ./mobile-apps/admin_app
         run: |
           flutter create --org com.expertaidlms --platforms android .
+          
+      - name: Fix Kotlin version in settings.gradle
+        working-directory: ./mobile-apps/admin_app/android
+        run: |
+          sed -i 's/id "org.jetbrains.kotlin.android" version "[^"]*"/id "org.jetbrains.kotlin.android" version "1.9.22"/' settings.gradle
       
       - name: Install dependencies
         working-directory: ./mobile-apps/admin_app
@@ -182,10 +197,15 @@ jobs:
           flutter-version: '3.24.0'
           channel: 'stable'
       
-      - name: Create android folder
+      - name: Create Android structure
         working-directory: ./mobile-apps/driver_app
         run: |
           flutter create --org com.expertaidlms --platforms android .
+          
+      - name: Fix Kotlin version in settings.gradle
+        working-directory: ./mobile-apps/driver_app/android
+        run: |
+          sed -i 's/id "org.jetbrains.kotlin.android" version "[^"]*"/id "org.jetbrains.kotlin.android" version "1.9.22"/' settings.gradle
       
       - name: Install dependencies
         working-directory: ./mobile-apps/driver_app
