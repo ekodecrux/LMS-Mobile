@@ -33,6 +33,42 @@ class ApiService {
     }
   }
 
+  Future<Map<String, dynamic>> sendOTP(String email) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/auth/send-otp'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({'email': email}),
+      );
+
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        throw Exception('Failed to send OTP: ${response.body}');
+      }
+    } catch (e) {
+      throw Exception('Network error: $e');
+    }
+  }
+
+  Future<Map<String, dynamic>> verifyOTP(String email, String otp) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/auth/verify-otp'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({'email': email, 'otp': otp}),
+      );
+
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        throw Exception('OTP verification failed: ${response.body}');
+      }
+    } catch (e) {
+      throw Exception('Network error: $e');
+    }
+  }
+
   // ========== PARENT APIs ==========
   Future<List<dynamic>> getChildren(String parentId) async {
     final headers = await _getHeaders();
